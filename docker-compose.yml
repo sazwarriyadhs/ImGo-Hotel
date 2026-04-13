@@ -1,0 +1,170 @@
+version: '3.8'
+
+services:
+  # Database PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: imgo-postgres
+    environment:
+      POSTGRES_DB: imgohotel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: newpassword123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d imgohotel"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api-gateway:
+    build: ./backend/api-gateway
+    container_name: imgo-api-gateway
+    ports:
+      - "8092:8092"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  auth-service:
+    build: ./backend/auth-service
+    container_name: imgo-auth-service
+    ports:
+      - "8093:8093"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  hotel-service:
+    build: ./backend/hotel-service
+    container_name: imgo-hotel-service
+    ports:
+      - "8094:8094"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  restaurant-service:
+    build: ./backend/restaurant-service
+    container_name: imgo-restaurant-service
+    ports:
+      - "8095:8095"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  spa-service:
+    build: ./backend/spa-service
+    container_name: imgo-spa-service
+    ports:
+      - "8096:8096"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  pilates-service:
+    build: ./backend/pilates-service
+    container_name: imgo-pilates-service
+    ports:
+      - "8097:8097"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  ai-service:
+    build: ./backend/ai-service
+    container_name: imgo-ai-service
+    ports:
+      - "8098:8098"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  promo-service:
+    build: ./backend/promo-service
+    container_name: imgo-promo-service
+    ports:
+      - "8099:8099"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+      - PORT=8099
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  employee-service:
+    build: ./backend/employee-service
+    container_name: imgo-employee-service
+    ports:
+      - "8100:8100"
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=newpassword123
+      - DB_NAME=imgohotel
+      - DB_PORT=5432
+      - PORT=8100
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

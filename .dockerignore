@@ -1,0 +1,67 @@
+# Git
+.git/
+.gitignore
+
+# Vendor
+vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Temp files
+tmp/
+temp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files
+Dockerfile*
+.dockerignore
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Node modules (jika ada frontend)
+node_modules/
+
+# Build artifacts
+dist/
+build/
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test coverage
+*.out
+*.test
+coverage.txt
+coverage.html
+
+# Backend specific
+/backend/tmp/
+/backend/*.log
+
+# Frontend (jika tidak perlu di Docker)
+imgo-frontend/
+frontend/
+
+# Infrastructure
+infrastructure/
+
+# Scripts
+scripts/

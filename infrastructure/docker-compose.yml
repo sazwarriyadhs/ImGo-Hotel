@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+
+api-gateway:
+build: ../backend/api-gateway
+ports:
+- "8091:8080"
+env_file:
+- .env
+
+auth-service:
+build: ../backend/auth-service
+ports:
+- "8081:8080"
+env_file:
+- .env
+
+hotel-service:
+build: ../backend/hotel-service
+ports:
+- "8082:8080"
+env_file:
+- .env
+
+restaurant-service:
+build: ../backend/restaurant-service
+ports:
+- "8083:8080"
+env_file:
+- .env
+
+spa-service:
+build: ../backend/spa-service
+ports:
+- "8084:8080"
+env_file:
+- .env
+
+pilates-service:
+build: ../backend/pilates-service
+ports:
+- "8086:8080"
+env_file:
+- .env
+
+ai-service:
+build: ../backend/ai-service
+ports:
+- "8085:8080"
+env_file:
+- .env
